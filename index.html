@@ -1,0 +1,63 @@
+<html>
+	<head>
+		<style type="text/css">
+			#testA,#testB{border:1px solid gray;}
+			#testA:hover,#testB:hover{border:1px solid #DAA520;}
+			a{text-decoration:none;}
+			a:hover{text-decoration:underline;}
+		</style>
+	</head>
+	<body>
+		<div style="margin: 15% 35%;">
+			<!-- Include a default element in the noscript tag in case javascript is disabled -->
+			<noscript>
+				<div style="cursor:pointer;color:#3d3d3d;font-size:26px;font-family:Arial,sans-serif;font-weight:bold;">
+					Fallback Call-To-Action
+				</div>
+				<style type="text/css">
+					#testA,#testB{display:none;}
+				</style>
+			</noscript>
+			<!-- Test Element A (hidden with CSS) -->
+			<div id="testA" onclick="clickTrack();" style="display:none;cursor:pointer;border-radius:5px;box-shadow: 0px 0px 8px gray;width:460px;height:259px;background: white url('./example-graphic.png') no-repeat 0px 0px;">
+			</div>
+			<!-- Test Element B (hidden with CSS) -->
+			<div id="testB" onclick="clickTrack();" style="display:none;cursor:pointer;border-radius:5px;box-shadow: 0px 0px 8px gray;width:460px;height:259px;background: white url('./example-graphic.png') no-repeat 0px -259px;">
+			</div>
+			<!-- Google Docs Form (hidden with CSS) -->
+			<iframe name="abframe" src="https://docs.google.com/spreadsheet/embeddedform?formkey=dFZuQlByTXRtUUVuUDJCbWZSd3RYb2c6MQ" style="display:none;"></iframe>
+			<form  id="custom_ab" action="https://docs.google.com/spreadsheet/formResponse?formkey=dFZuQlByTXRtUUVuUDJCbWZSd3RYb2c6MQ" style="display:none;" method="POST" target="abframe">
+				<input class="ss-q-short" id="entry_0" name="entry.0.single" type="text" value="" />
+				<input class="ss-q-short" id="entry_1" name="entry.1.single" type="text" value="" />
+			</form>
+			<!-- Tracking Spreadsheet -->
+			<br/>
+			<a href="https://docs.google.com/spreadsheet/ccc?key=0AmuBBTDrF6YxdFZuQlByTXRtUUVuUDJCbWZSd3RYb2c" target="_blank">Click here to view tracking spreadsheet.</a>
+		</div>
+		<script type="text/javascript">
+			var clickTrack = function(){
+				document.getElementById('entry_0').value = '';
+				document.getElementById('custom_ab').submit();
+				document.getElementById('testA').setAttribute('onclick', ';');
+				document.getElementById('testB').setAttribute('onclick', ';');
+				location.href='https://docs.google.com/spreadsheet/ccc?key=0AmuBBTDrF6YxdFZuQlByTXRtUUVuUDJCbWZSd3RYb2c'
+			}
+			function abPick(){
+				var randombase = Math.floor((Math.random()*10)+1);
+				if (randombase <= 5){
+					document.getElementById('testA').style.display = 'block';
+					document.getElementById('entry_0').value = 'Call-To-Action A';
+					document.getElementById('custom_ab').submit();
+					document.getElementById('entry_1').value = 'Call-To-Action A';
+				}
+				if (randombase >= 6){
+					document.getElementById('testB').style.display = 'block';
+					document.getElementById('entry_0').value = 'Call-To-Action B';
+					document.getElementById('custom_ab').submit();
+					document.getElementById('entry_1').value = 'Call-To-Action B';
+				}
+			}
+			window.onload = abPick();	
+		</script>
+	</body>
+</html>
